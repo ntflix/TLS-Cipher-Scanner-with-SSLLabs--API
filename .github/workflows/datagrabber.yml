@@ -11,9 +11,6 @@ jobs:
     name: Build & Run in Docker
     runs-on: self-hosted
     steps:
-      - name: Build Docker image
-        run: |
-          docker build -t datagrabber .
       - name: Create directories for datagrabber
         continue-on-error: true
         run: |
@@ -31,6 +28,9 @@ jobs:
           # Copy datagrabber data
           echo "Copying datagrabber data from $PWD/ to ~/datagrabber"
           cp -r $PWD/* ~/datagrabber/.
+      - name: Build Docker image
+        run: |
+          docker build -t datagrabber .
       - name: Stop previous container
         continue-on-error: true
         run: |
