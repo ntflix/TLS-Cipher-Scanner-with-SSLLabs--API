@@ -6,7 +6,7 @@ import asyncio
 
 
 async def scan_and_output(hosts: list[str], output_filename: str) -> None:
-    semaphore = asyncio.Semaphore(2)
+    semaphore = asyncio.Semaphore(1)
     write_csv_headers(output_filename)
 
     async def sem_scan_host(host: str):
