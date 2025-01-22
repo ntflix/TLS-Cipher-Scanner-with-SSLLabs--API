@@ -40,7 +40,8 @@ jobs:
       - name: Run datagrabber
         run: |
           # Run datagrabber with output directory mounted
-          docker run -d \
+          # Run in FOREGROUND so we know when it's done
+          docker run \
           -v ~/datagrabber/Output:/app/Output \
           --name datagrabber \
           datagrabber
