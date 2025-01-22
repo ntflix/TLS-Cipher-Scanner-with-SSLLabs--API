@@ -2,7 +2,7 @@ name: Docker on self-hosted runner
 
 on:
   push:
-    branches: ["master"]
+    branches: ["main"]
     paths-ignore: ["**.md"]
   workflow_dispatch:
 
