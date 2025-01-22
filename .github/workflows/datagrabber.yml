@@ -41,9 +41,9 @@ jobs:
         run: |
           # Run datagrabber with output directory mounted
           # Run in FOREGROUND so we know when it's done
+          # --rm \
           docker run \
           -v ~/datagrabber/Output:/app/Output \
           -v ~/masterurl.csv:/app/masterurl.csv \
           --name datagrabber \
-          # --rm \
           datagrabber
