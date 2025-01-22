@@ -43,5 +43,7 @@ jobs:
           # Run in FOREGROUND so we know when it's done
           docker run \
           -v ~/datagrabber/Output:/app/Output \
+          -v ~/masterurl.csv:/app/masterurl.csv \
           --name datagrabber \
+          # --rm \
           datagrabber
