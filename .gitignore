@@ -1,0 +1,5 @@
+masterurl**.csv
+Output/*
+**.pyc
+.venv/
+**.DS_Store

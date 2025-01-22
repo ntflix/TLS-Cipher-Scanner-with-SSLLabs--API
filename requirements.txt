@@ -1,0 +1,2 @@
+ssllabs==1.2.1
+setuptools==68.0.0
