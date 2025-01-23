@@ -14,10 +14,8 @@ def get_ip_from_host(host: str) -> str:
 async def get_endpoint(target: str) -> EndpointData:
     api = Endpoint()
     endpoint: EndpointData | None = None
-    try_again: bool = False
 
-    while try_again:
-        try_again = False
+    while True:
         try:
             endpoint = await api.get(
                 host=target,
@@ -25,10 +23,10 @@ async def get_endpoint(target: str) -> EndpointData:
                 fromCache=True,
                 # all=True,
             )
+            break
         except HTTPStatusError as e:
             # if 429, wait for 10 seconds and retry
             if e.response.status_code == 429:
-                try_again = True
                 await asyncio.sleep(10)
             else:
                 raise e
@@ -40,10 +38,8 @@ async def get_endpoint(target: str) -> EndpointData:
 async def analyze(target: str) -> HostData:
     api = Analyze()
     host: HostData | None = None
-    try_again: bool = False
 
-    while try_again:
-        try_again = False
+    while True:
         try:
             host = await api.get(
                 host=target,
@@ -51,10 +47,10 @@ async def analyze(target: str) -> HostData:
                 all="on",
                 maxAge=168,
             )
+            break
         except HTTPStatusError as e:
             # if 429, wait for 10 seconds and retry
             if e.response.status_code == 429:
-                try_again = True
                 await asyncio.sleep(10)
             else:
                 raise e
