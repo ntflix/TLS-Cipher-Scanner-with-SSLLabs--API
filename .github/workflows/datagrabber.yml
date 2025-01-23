@@ -47,7 +47,7 @@ jobs:
           -v ~/masterurl.csv:/app/masterurl.csv \
           --name datagrabber \
           datagrabber
-      - name: Replace old Output.csv with new
+      - name: Replace old Output/tlsscan.csv with new Output/tlsscan_new.csv
         run: |
           # Replace old Output/tlsscan.csv with new Output/tlsscan_new.csv
           mv ~/datagrabber/Output/tlsscan_new.csv ~/datagrabber/Output/tlsscan.csv
