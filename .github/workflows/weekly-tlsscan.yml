@@ -1,0 +1,48 @@
+name: "Weekly TLSScan"
+
+on:
+  schedule:
+    # Every Sunday at 00:00 (UTC)
+    - cron: "0 0 * * 0"
+
+jobs:
+  build:
+    name: Build & Run in Docker
+    runs-on: self-hosted
+    steps:
+      - name: Create directories for datagrabber
+        continue-on-error: true
+        run: |
+          # Create directories for preserving datagrabber data
+          mkdir -p ~/datagrabber/Output
+      - name: Set permissions
+        continue-on-error: true
+        run: |
+          # Make datagrabber Output directory writable
+          chmod 777 ~/datagrabber/Output
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Copy datagrabber data
+        run: |
+          # Copy datagrabber data
+          echo "Copying datagrabber data from $PWD/ to ~/datagrabber"
+          cp -r $PWD/* ~/datagrabber/.
+      - name: Build Docker image
+        run: |
+          docker build -t datagrabber .
+      - name: Stop previous container
+        continue-on-error: true
+        run: |
+          # Stop previous container
+          docker container stop datagrabber
+          docker container rm datagrabber
+      - name: Run datagrabber
+        run: |
+          # Run datagrabber with output directory mounted
+          # Run in FOREGROUND so we know when it's done
+          # --rm \
+          docker run \
+          -v ~/datagrabber/Output:/app/Output \
+          -v ~/masterurl.csv:/app/masterurl.csv \
+          --name datagrabber \
+          datagrabber
