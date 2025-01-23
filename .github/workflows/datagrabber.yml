@@ -37,16 +37,16 @@ jobs:
           # Stop previous container
           docker container stop datagrabber
           docker container rm datagrabber
-          - name: Run datagrabber
-          run: |
-            # Run datagrabber with output directory mounted
-            # Run in FOREGROUND so we know when it's done
-            # --rm \
-            docker run \
-            -v ~/datagrabber/Output:/app/Output \
-            -v ~/masterurl.csv:/app/masterurl.csv \
-            --name datagrabber \
-            datagrabber
+      - name: Run datagrabber
+        run: |
+          # Run datagrabber with output directory mounted
+          # Run in FOREGROUND so we know when it's done
+          # --rm \
+          docker run \
+          -v ~/datagrabber/Output:/app/Output \
+          -v ~/masterurl.csv:/app/masterurl.csv \
+          --name datagrabber \
+          datagrabber
       - name: Replace old Output.csv with new
         run: |
           # Replace old Output/tlsscan.csv with new Output/tlsscan_new.csv
