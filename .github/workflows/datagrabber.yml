@@ -37,6 +37,9 @@ jobs:
           # Stop previous container
           docker container stop datagrabber
           docker container rm datagrabber
+      - name: Make CSV files if not exist
+        run: |
+          touch ~/masterurl_new.csv
       - name: Run datagrabber
         run: |
           # Run datagrabber with output directory mounted
@@ -44,6 +47,10 @@ jobs:
           # --rm \
           docker run \
           -v ~/datagrabber/Output:/app/Output \
-          -v ~/masterurl.csv:/app/masterurl.csv \
+          -v ~/masterurl_new.csv:/app/masterurl.csv \
           --name datagrabber \
           datagrabber
+      - name: Replace old masterurl.csv with new
+        run: |
+          # Replace old masterurl.csv with new
+          mv ~/datagrabber/masterurl_new.csv ~/masterurl.csv

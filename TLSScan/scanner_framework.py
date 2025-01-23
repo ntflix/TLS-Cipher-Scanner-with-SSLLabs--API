@@ -17,7 +17,7 @@ async def scan_host(host: str) -> HostData:
             ready = True
             print(f"Scan complete for {host}.")
         else:
-            if total_sleep >= 500:
+            if total_sleep >= 3600:
                 raise TimeoutError(
                     (
                         f"Timeout after {total_sleep} seconds on {host}"
