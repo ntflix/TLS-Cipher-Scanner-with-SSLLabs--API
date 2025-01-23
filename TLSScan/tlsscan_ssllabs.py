@@ -30,6 +30,8 @@ async def get_endpoint(target: str) -> EndpointData:
             if e.response.status_code == 429:
                 try_again = True
                 await asyncio.sleep(10)
+            else:
+                raise e
 
     assert endpoint is not None
     return endpoint
@@ -54,6 +56,8 @@ async def analyze(target: str) -> HostData:
             if e.response.status_code == 429:
                 try_again = True
                 await asyncio.sleep(10)
+            else:
+                raise e
 
     assert host is not None
     return host
