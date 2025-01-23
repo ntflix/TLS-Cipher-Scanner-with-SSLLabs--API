@@ -10,6 +10,7 @@ def get_list_of_hosts():
     hosts_filename = "masterurl.csv"
 
     hosts_from_file: list[str] = get_hosts(hosts_filename)
+    # disable if you don't have access to svcxplore:
     hosts_from_svcxplore: list[str] = get_hosts_from_svcxplore()
 
     hosts = hosts_from_file + hosts_from_svcxplore
