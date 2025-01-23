@@ -1,7 +1,6 @@
 import asyncio
 from TLSScan import scan_with_ssllabs
-from TLSScan.get_hosts_from_svcxplore import get_hosts_from_svcxplore
-from TLSScan.helpers import get_domain_only, get_hosts
+from TLSScan.helpers import get_hosts, get_hosts_from_svcxplore
 
 OUTPUT_FILENAME = "Output/tlsscan_new.csv"
 
@@ -15,8 +14,6 @@ def get_list_of_hosts():
 
     hosts = hosts_from_file + hosts_from_svcxplore
 
-    hosts = [get_domain_only(host) for host in hosts]
-    hosts = list(set(hosts))  # Remove duplicates
     return hosts
 
 
