@@ -2,7 +2,7 @@ import asyncio
 from TLSScan import scan_with_ssllabs
 from TLSScan.helpers import get_hosts
 
-OUTPUT_FILENAME = "Output/tlsscan.csv"
+OUTPUT_FILENAME = "Output/tlsscan_new.csv"
 
 
 def get_list_of_hosts():
