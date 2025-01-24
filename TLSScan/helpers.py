@@ -25,7 +25,7 @@ def get_hosts_from_svcxplore():
 
     domains = [get_domain_only(domain) for domain in domains]
     domains = list(set(domains))  # Remove duplicates
-    domains = [domain for domain in domains if not is_ip(domain) is False]  # Remove IPs
+    domains = [domain for domain in domains if not is_ip(domain)]  # Remove IPs
 
     return domains
 
