@@ -11,7 +11,13 @@ async def scan_and_output(hosts: list[str], output_filename: str) -> None:
 
     async def sem_scan_host(host: str):
         async with semaphore:
-            result = await scan_host(host)
+            result: HostData | None = None
+            try:
+                result = await scan_host(host)
+            except Exception as e:
+                print(f"Error scanning {host}: {e}")
+            if not result:
+                return
             assert result.host
             output_csv(result, host, output_filename)
             await asyncio.sleep(1)  # Add a 1-second delay between starting each task
