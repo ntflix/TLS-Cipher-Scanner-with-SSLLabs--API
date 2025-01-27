@@ -1,5 +1,6 @@
 import socket
 from httpx import HTTPStatusError
+import httpx
 from ssllabs.api import Endpoint, Analyze
 from ssllabs.data.host import HostData
 from ssllabs.data.endpoint import EndpointData
@@ -54,6 +55,11 @@ async def analyze(target: str) -> HostData:
                 await asyncio.sleep(10)
             else:
                 raise e
-
+        except httpx.ReadTimeout as readTimeout:
+            print(f"ReadTimeout: {readTimeout}. Sleeping 60 seconds.")
+            await asyncio.sleep(60)
+        except httpx.ConnectTimeout as connectTimeout:
+            print(f"ConnectTimeout: {connectTimeout}. Sleeping 60 seconds.")
+            await asyncio.sleep(60)
     assert host is not None
     return host
