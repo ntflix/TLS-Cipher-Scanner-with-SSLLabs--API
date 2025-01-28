@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     name: Build & Run in Docker
+    timeout-minutes: 2880
     runs-on: self-hosted
     steps:
       - name: Create directories for datagrabber
