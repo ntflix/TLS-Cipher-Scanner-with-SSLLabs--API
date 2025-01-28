@@ -21,8 +21,8 @@ async def get_endpoint(target: str) -> EndpointData:
             endpoint = await api.get(
                 host=target,
                 s=get_ip_from_host(target),
-                fromCache=True,
-                # all=True,
+                fromCache="on",
+                # all="done",
             )
             break
         except HTTPStatusError as e:
@@ -44,9 +44,9 @@ async def analyze(target: str) -> HostData:
         try:
             host = await api.get(
                 host=target,
-                fromCache=True,
-                all="on",
-                maxAge=168,
+                fromCache="on",
+                all="done",
+                maxAge=96,
             )
             break
         except HTTPStatusError as e:
