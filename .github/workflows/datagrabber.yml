@@ -52,3 +52,5 @@ jobs:
         run: |
           # Replace old Output/tlsscan.csv with new Output/tlsscan_new.csv
           mv ~/datagrabber/Output/tlsscan_new.csv ~/datagrabber/Output/tlsscan.csv
+          # make a copy of (new) tlsscan.csv to {today's date}_tlsscan.csv
+          cp ~/datagrabber/Output/tlsscan.csv ~/datagrabber/Output/$(date +%Y%m%d)_tlsscan.csv

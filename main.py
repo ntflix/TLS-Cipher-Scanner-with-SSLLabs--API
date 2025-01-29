@@ -14,6 +14,10 @@ def get_list_of_hosts():
 
     hosts = hosts_from_file + hosts_from_svcxplore
 
+    print(f"Total hosts: {len(hosts)}")
+    print(f"\tFrom file: {len(hosts_from_file)}")
+    print(f"\tFrom SVCXplore: {len(hosts_from_svcxplore)}")
+
     return hosts
 
 
