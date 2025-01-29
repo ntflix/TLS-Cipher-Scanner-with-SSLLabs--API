@@ -1,4 +1,3 @@
-from typing import Coroutine
 from TLSScan.endpoint_suites_data import EndpointProtocolSuitesData
 from TLSScan.scanner_framework import scan_host
 from ssllabs.data.host import HostData
@@ -6,28 +5,23 @@ import asyncio
 
 
 async def scan_and_output(hosts: list[str], output_filename: str) -> None:
-    semaphore = asyncio.Semaphore(1)
     write_csv_headers(output_filename)
 
-    async def sem_scan_host(host: str):
-        async with semaphore:
-            result: HostData | None = None
-            try:
-                result = await scan_host(host)
-            except Exception as e:
-                print(f"Error scanning {host}: {e}")
-            if not result:
-                return
-            assert result.host
-            output_csv(result, host, output_filename)
-            await asyncio.sleep(1)  # Add a 1-second delay between starting each task
+    for i, host in enumerate(hosts):
+        result: HostData | None = None
+        try:
+            result = await scan_host(host)
+        except Exception as e:
+            print(f"Error scanning {host}: {e}")
+        if not result:
+            return
+        assert result.host
+        output_csv(result, host, output_filename)
+        print(
+            f"Scanned {i + 1} out of {len(hosts)} hosts. {len(hosts) - i - 1} remaining."
+        )
+        await asyncio.sleep(1)  # Add a 1-second delay between starting each task
 
-    tasks: list[Coroutine[None, None, None]] = []
-    for host in hosts:
-        tasks.append(sem_scan_host(host))
-        # await asyncio.sleep(1)  # Add a 1-second delay between starting each task
-
-    await asyncio.gather(*tasks)
     print(
         (
             f"CSV output to {output_filename} complete. "
